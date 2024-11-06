@@ -1,0 +1,37 @@
+# Ignore build results
+[Dd]ebug/
+[Dd]ebugPublic/
+[Dd]ist/
+[Dd]eploy/
+[Dd]ebugTest/
+[Dd]ebug_Windows/
+[Dd]ebug_Linux/
+[Dd]ebug_Mac/
+bin/
+obj/
+
+# User-specific files
+.vscode/
+.idea/
+
+# Rider and ReSharper settings
+.idea/
+*.suo
+*.user
+*.userosscache
+*.sln.docstates
+
+# Windows Installer files
+*.cab
+*.msi
+*.msm
+*.msp
+
+# NUnit Test Result files
+TestResult.xml
+
+# Temporary ASP.NET files
+*.dll
+*.pdb
+*.exe
+*.config

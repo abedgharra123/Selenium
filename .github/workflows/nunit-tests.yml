@@ -1,0 +1,50 @@
+name: Run NUnit Tests
+
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+    branches:
+      - main
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      # Checkout the repository
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      # Set up .NET 6 SDK
+      - name: Set up .NET 6
+        uses: actions/setup-dotnet@v3
+        with:
+          dotnet-version: '6.0.x'
+
+      # Restore dependencies
+      - name: Restore dependencies
+        run: dotnet restore
+
+      # Build the project
+      - name: Build the project
+        run: dotnet build --configuration Release
+
+      # Run NUnit tests
+      - name: Run NUnit Tests
+        run: dotnet test --configuration Release --no-build --verbosity normal
+        env:
+          NUnitConsolePath: $(which nunit3-console)
+
+      # Optional: Run tests with Selenium (you can modify based on your Selenium setup)
+      - name: Set up Selenium WebDriver
+        run: |
+          sudo apt-get install -y chromium-browser
+          sudo apt-get install -y chromedriver
+          export CHROME_BIN=/usr/bin/chromium-browser
+          export CHROMEDRIVER_PATH=/usr/bin/chromedriver
+
+      # Run tests with Selenium (if required)
+      - name: Run Selenium tests (if applicable)
+        run: dotnet test --configuration Release --no-build --filter "FullyQualifiedName~SeleniumTests"
